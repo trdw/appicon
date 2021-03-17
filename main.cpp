@@ -22,7 +22,7 @@ int main(const int argc, const char * argv[]) {
     }
 
     // Read the input image file
-    Mat image = imread(input_image, IMREAD_GRAYSCALE);
+    Mat image = imread(input_image);
     if (!image.data) {
         printf("No image data \n");
         return -1;
