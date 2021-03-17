@@ -29,12 +29,16 @@ int main(const int argc, const char * argv[]) {
     }
 
     // Create vector of output sizes
-    vector<int> sizes = {20, 29, 40, 58, 76, 80, 87, 120, 152, 167, 180};
+    vector<int> sizes = {20, 29, 40, 58, 60, 76, 80, 87, 120, 152, 167, 180, 1024};
 
     // For each size, write the corresponding image file
     Mat output;
     for (auto size : sizes) {
-        resize(image, output, Size(size, size));
+        if (size < image.rows) {
+            resize(image, output, Size(size, size), 0, 0, INTER_AREA);
+        } else if (size > image.rows) {
+            resize(image, output, Size(size, size), 0, 0, INTER_CUBIC);
+        }
         imwrite(to_string(size) + ".png", output);
     }
 
