@@ -27,6 +27,7 @@ int main(const int argc, const char * argv[]) {
         printf("No image data \n");
         return -1;
     }
+    string name = input_image.substr(0, input_image.find('.', 0));
 
     // Create vector of output sizes
     vector<int> sizes = {20, 29, 40, 58, 60, 76, 80, 87, 120, 152, 167, 180, 1024};
@@ -36,10 +37,10 @@ int main(const int argc, const char * argv[]) {
     for (auto size : sizes) {
         if (size < image.rows) {
             resize(image, output, Size(size, size), 0, 0, INTER_AREA);
-        } else if (size > image.rows) {
+        } else {
             resize(image, output, Size(size, size), 0, 0, INTER_CUBIC);
         }
-        imwrite(to_string(size) + ".png", output);
+        imwrite(name + "-" + to_string(size) + ".png", output);
     }
 
     return 0;
